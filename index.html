@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fazendo Terapia</title>
+  <meta name="description"
+    content="Clínica Multidisciplinar Fazendo Terapia especializada em Neurodesenvolvimento, Terapia Ocupacional, Fonoaudiologia, Psicologia, Fisioterapia e especialidades integradas.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/logo-icone.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#0082d2',
+              blueDark: '#0062a3',
+              pink: '#dc006e',
+              yellow: '#faaa00',
+              green: '#5ab400'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden relative selection:bg-sky-500 selection:text-white">
+
+  <!-- ================= CANVAS 3D GLOBAL (ESCULTURA 3D DE QUEBRA-CABEÇA & NEURODIVERSIDADE) ================= -->
+  <!-- Acompanha e reage ao scroll da página inteira -->
+  <div id="global-3d-canvas-container"></div>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="sticky top-0 z-40 glass-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo com Presença Elegante e Protegida contra estouro no Celular -->
+        <a href="#" class="flex items-center gap-2 shrink-0">
+          <img src="assets/images/logo-completa.png" alt="Fazendo Terapia" class="h-10 sm:h-12 md:h-14 w-auto object-contain" style="max-height: 48px; max-width: 170px; object-fit: contain;">
+        </a>
+
+        <!-- Menu Desktop -->
+        <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-700">
+          <a href="#especialidades" class="hover:text-sky-600 transition-colors">Especialidades</a>
+          <a href="#ambientes" class="hover:text-sky-600 transition-colors">Ambientes</a>
+          <a href="#planos" class="hover:text-sky-600 transition-colors">Planos & Descontos</a>
+          <a href="#contato" class="hover:text-sky-600 transition-colors">Contato & Localização</a>
+        </div>
+
+        <!-- Botão WhatsApp Recepção -->
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20Recep%C3%A7%C3%A3o%20da%20Fazendo%20Terapia!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20e%20agendamento."
+            target="_blank" class="btn-zap px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Falar com a Recepção</span>
+          </a>
+        </div>
+
+        <!-- Menu Mobile Toggle -->
+        <div class="flex lg:hidden">
+          <button id="mobile-menu-btn" class="p-2 text-slate-700 hover:bg-slate-100 rounded-xl" aria-label="Abrir menu">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Drawer Mobile -->
+  <div id="mobile-nav"
+    class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm transform translate-x-full transition-transform duration-300 lg:hidden flex justify-end">
+    <div class="bg-white w-3/4 max-w-xs h-full p-6 shadow-2xl flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+          <img src="assets/images/logo-completa.png" alt="Logo" class="h-10 w-auto">
+          <button id="mobile-menu-close" class="p-2 text-slate-500">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <div class="flex flex-col space-y-4 mt-6 text-sm font-semibold text-slate-700">
+          <a href="#especialidades" class="mobile-link hover:text-sky-600 py-1">Especialidades</a>
+          <a href="#ambientes" class="mobile-link hover:text-sky-600 py-1">Ambientes</a>
+          <a href="#planos" class="mobile-link hover:text-sky-600 py-1">Planos & Descontos</a>
+          <a href="#contato" class="mobile-link hover:text-sky-600 py-1">Contato & Localização</a>
+        </div>
+      </div>
+      <a href="https://wa.me/5511999999999" target="_blank"
+        class="w-full btn-zap py-3 rounded-xl font-bold text-center flex items-center justify-center gap-2 text-sm">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        WhatsApp da Recepção
+      </a>
+    </div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <section class="relative pt-12 pb-20 lg:pt-16 lg:pb-28 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+
+
+
+          <!-- Título que integra a marca de forma orgânica e profissional -->
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Na <span class="text-gradient-brand">Fazendo Terapia</span>, cuidamos do desenvolvimento de crianças e
+            adultos.
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0">
+            Equipe completa em neurodesenvolvimento, terapias infantis e reabilitação. Atendimento acolhedor e focado na
+            evolução de cada paciente.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20e%20agendamento%20na%20Fazendo%20Terapia."
+              target="_blank"
+              class="w-full sm:w-auto btn-zap px-8 py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2.5">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Falar com a Recepção no WhatsApp</span>
+            </a>
+            <a href="#especialidades"
+              class="w-full sm:w-auto px-6 py-3.5 rounded-2xl font-bold text-sm text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-colors text-center">
+              Ver Especialidades
+            </a>
+          </div>
+
+          <div
+            class="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-4 text-xs font-semibold text-slate-500">
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-600"></i> 10
+              Especialidades</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-pink-600"></i>
+              Apoio ao Autismo & TEA</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2"
+                class="w-4 h-4 text-emerald-600"></i> Planos & Convênios com Desconto</span>
+          </div>
+
+        </div>
+
+        <!-- Área lateral para contemplação do Modelo 3D Global em movimento -->
+        <div class="lg:col-span-5 h-72 sm:h-84 lg:h-[460px] flex items-center justify-center relative"></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CARROSSEL DE ESPECIALIDADES (2 POR LINHA) ================= -->
+  <section id="especialidades" class="py-16 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Título da Seção destacando a Marca com Elegância -->
+      <div class="mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-sky-600">Equipe Multidisciplinar</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Especialidades da Fazendo Terapia</h2>
+      </div>
+
+      <!-- Wrapper Relativo para as Setas Minimalistas sobre o Carrossel -->
+      <div class="carousel-wrapper-relative">
+
+        <!-- Seta Minimalista Esquerda (sobre os cards) -->
+        <button id="spec-prev" class="carousel-minimal-btn prev" aria-label="Especialidades anteriores">
+          <i data-lucide="chevron-left" class="w-6 h-6 stroke-[1.75]"></i>
+        </button>
+
+        <!-- Viewport do Carrossel -->
+        <div id="carousel-especialidades" class="carousel-viewport py-2">
+          <div class="carousel-track">
+
+            <!-- 1. Terapia Ocupacional -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center">
+                      <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700">Infantil &
+                      Adulto</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Terapia Ocupacional</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Autonomia nas atividades diárias, integração sensorial de Ayres e estimulação funcional para
+                    crianças e adultos.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-sky-600 bg-sky-50 hover:bg-sky-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="to">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. Fonoaudiologia -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center">
+                      <i data-lucide="message-circle" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-pink-50 text-pink-700">Todas as
+                      Idades</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Fonoaudiologia</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Desenvolvimento da fala, linguagem, motricidade orofacial, deglutição, mastigação e comunicação
+                    alternativa.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-pink-600 bg-pink-50 hover:bg-pink-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="fono">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Psicologia Clínica -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center">
+                      <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700">Infantil &
+                      Adulto</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Psicologia Clínica</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Acolhimento emocional, psicoterapia (TCC e ABA), manejo de ansiedade, regulação emocional e
+                    orientação de pais.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="psico">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Fisioterapia Neurofuncional -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                      <i data-lucide="activity" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">Motora &
+                      Neuro</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Fisioterapia</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Estimulação de marcos motores em bebês e crianças, reabilitação neurofuncional, postura e
+                    equilíbrio.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="fisio">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 5. Psicopedagogia -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center">
+                      <i data-lucide="book-open" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700">Escolares</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Psicopedagogia</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Intervenção nas dificuldades de aprendizagem, apoio na alfabetização, Dislexia e suporte para TDAH.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-sky-600 bg-sky-50 hover:bg-sky-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="psicoped">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 6. Psicomotricidade -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center">
+                      <i data-lucide="smile" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-pink-50 text-pink-700">Infantil</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Psicomotricidade</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Harmonia entre corpo, emoção e movimento pelo brincar, trabalhando coordenação motora ampla e fina.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-pink-600 bg-pink-50 hover:bg-pink-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="psicomot">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 7. Nutrição Clínica -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                      <i data-lucide="apple" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">Clínica &
+                      Infantil</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Nutrição</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Seletividade e recusa alimentar infantil (especialmente no TEA), introdução alimentar e hábitos
+                    saudáveis.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="nutri">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 8. Musicoterapia -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center">
+                      <i data-lucide="music" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700">Expressão &
+                      Ritmo</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Musicoterapia</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Uso científico dos sons e instrumentos musicais para estimular a comunicação, regulação e afeto.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="musico">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 9. Neuropsicologia -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center">
+                      <i data-lucide="brain" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700">Avaliações &
+                      Laudos</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Neuropsicologia</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Avaliação neuropsicológica das funções cognitivas (atenção, memória, raciocínio) com laudo
+                    diagnóstico.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-sky-600 bg-sky-50 hover:bg-sky-100 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="neuropsico">
+                  <span>Ver Detalhes & Agendar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 10. Médica Especialista -->
+            <div class="carousel-slide-2col">
+              <div
+                class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border-2 border-pink-200">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center">
+                      <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-pink-50 text-pink-700">Consulta
+                      Médica</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">Médica Especialista</h3>
+                  <p class="text-sm text-slate-600 mb-4">
+                    Avaliação médica de neurodesenvolvimento, diagnóstico diferencial de TEA, TDAH e condução clínica
+                    integrada.
+                  </p>
+                </div>
+                <button
+                  class="btn-open-specialty w-full py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-pink-600 hover:bg-pink-700 transition-colors flex items-center justify-center gap-1.5"
+                  data-key="medica">
+                  <span>Agendar Consulta Médica</span>
+                  <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Seta Minimalista Direita (sobre os cards) -->
+        <button id="spec-next" class="carousel-minimal-btn next" aria-label="Próximas especialidades">
+          <i data-lucide="chevron-right" class="w-6 h-6 stroke-[1.75]"></i>
+        </button>
+
+      </div>
+
+      <!-- Indicadores do Carrossel (Dots) -->
+      <div id="spec-dots" class="flex justify-center items-center gap-2 mt-6"></div>
+
+    </div>
+  </section>
+
+  <!-- ================= CARROSSEL DE AMBIENTES (APENAS IMAGENS - 2 POR LINHA) ================= -->
+  <section id="ambientes" class="py-16 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-pink-600">Estrutura & Acolhimento</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Ambientes da Clínica</h2>
+      </div>
+
+      <!-- Wrapper Relativo para as Setas Minimalistas sobre as fotos -->
+      <div class="carousel-wrapper-relative">
+
+        <!-- Seta Minimalista Esquerda (sobre as fotos) -->
+        <button id="amb-prev" class="carousel-minimal-btn prev" aria-label="Ambientes anteriores">
+          <i data-lucide="chevron-left" class="w-6 h-6 stroke-[1.75]"></i>
+        </button>
+
+        <!-- Viewport do Carrossel de Fotos -->
+        <div id="carousel-ambientes" class="carousel-viewport py-2">
+          <div class="carousel-track">
+
+            <!-- Foto 1: Fachada -->
+            <div class="carousel-slide-2col">
+              <div
+                class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
+                <img src="assets/images/fachada.jpg" alt="Fachada"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 zoomable-image">
+              </div>
+            </div>
+
+            <!-- Foto 2: Recepção / Espera -->
+            <div class="carousel-slide-2col">
+              <div
+                class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
+                <img src="assets/images/sala-espera.jpg" alt="Sala de Espera"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 zoomable-image">
+              </div>
+            </div>
+
+            <!-- Foto 3: Espaço Kids -->
+            <div class="carousel-slide-2col">
+              <div
+                class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
+                <img src="assets/images/sala-espera-kids.jpg" alt="Espaço Infantil"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 zoomable-image">
+              </div>
+            </div>
+
+            <!-- Foto 4: Sala Atendimento 1 -->
+            <div class="carousel-slide-2col">
+              <div
+                class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
+                <img src="assets/images/sala-atendimento-1.jpg" alt="Sala de Atendimento"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 zoomable-image">
+              </div>
+            </div>
+
+            <!-- Foto 5: Sala Atendimento 2 -->
+            <div class="carousel-slide-2col">
+              <div
+                class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
+                <img src="assets/images/sala-atendimento-2.jpg" alt="Consultório"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 zoomable-image">
+              </div>
+            </div>
+
+            <!-- Foto 6: Espaço Aberto -->
+            <div class="carousel-slide-2col">
+              <div
+                class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
+                <img src="assets/images/espaco-aberto.jpg" alt="Espaço Aberto"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 zoomable-image">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Seta Minimalista Direita (sobre as fotos) -->
+        <button id="amb-next" class="carousel-minimal-btn next" aria-label="Próximos ambientes">
+          <i data-lucide="chevron-right" class="w-6 h-6 stroke-[1.75]"></i>
+        </button>
+
+      </div>
+
+      <!-- Dots do Carrossel de Ambientes -->
+      <div id="amb-dots" class="flex justify-center items-center gap-2 mt-6"></div>
+
+    </div>
+  </section>
+
+  <!-- ================= PLANOS, CONVÊNIOS E DESCONTOS ================= -->
+  <section id="planos" class="py-16 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-lg">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+          <!-- Texto Direto & Comercial -->
+          <div class="lg:col-span-5 space-y-4">
+            <span
+              class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase">
+              Economia & Acesso
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+              Planos, Convênios & Parcerias com Descontos
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+              Consulte nossa recepção para saber se o seu convênio, empresa ou entidade conveniada possui descontos e
+              condições especiais ativas para os atendimentos na Fazendo Terapia.
+            </p>
+            <div class="pt-2">
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20consultar%20se%20o%20meu%20plano%20ou%20conv%C3%AAnio%20tem%20desconto%20na%20Fazendo%20Terapia."
+                target="_blank"
+                class="btn-zap px-6 py-3 rounded-xl font-bold text-sm inline-flex items-center gap-2 shadow-md">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>Consultar Desconto do Meu Plano</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- As 2 Fotos de Convênios e Parcerias em Destaque Visual -->
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm group cursor-pointer">
+              <div
+                class="p-3 border-b border-slate-100 text-xs font-bold text-slate-700 flex justify-between items-center">
+                <span>Tabela de Convênios</span>
+                <span class="text-emerald-600 text-[11px] font-semibold">Toque para ampliar</span>
+              </div>
+              <img src="assets/images/convenios.jpg" alt="Convênios com desconto"
+                class="w-full h-auto object-cover zoomable-image group-hover:scale-102 transition-transform">
+            </div>
+
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm group cursor-pointer">
+              <div
+                class="p-3 border-b border-slate-100 text-xs font-bold text-slate-700 flex justify-between items-center">
+                <span>Nossas Parcerias</span>
+                <span class="text-sky-600 text-[11px] font-semibold">Toque para ampliar</span>
+              </div>
+              <img src="assets/images/parcerias.jpg" alt="Parcerias e descontos"
+                class="w-full h-auto object-cover zoomable-image group-hover:scale-102 transition-transform">
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= LOCALIZAÇÃO & CONTATO ================= -->
+  <section id="contato" class="py-16 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- Info & Mapa (7 colunas) -->
+        <div class="lg:col-span-7 space-y-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-sky-600">Localização & Contato</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Como Chegar & Canais de Atendimento</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-500 uppercase">WhatsApp Recepção</p>
+                <a href="https://wa.me/5511999999999" target="_blank"
+                  class="text-sm font-extrabold text-slate-900 hover:text-emerald-600">
+                  (11) 99999-9999
+                </a>
+              </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-500 uppercase">E-mail</p>
+                <a href="mailto:contato@fazendoterapia.com.br"
+                  class="text-sm font-extrabold text-slate-900 hover:text-sky-600">
+                  contato@fazendoterapia.com.br
+                </a>
+              </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-500 uppercase">Horários</p>
+                <p class="text-xs font-bold text-slate-900">Seg a Sex: 08h às 19h</p>
+                <p class="text-[11px] text-slate-500">Sábado: 08h às 13h</p>
+              </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center shrink-0">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-500 uppercase">Endereço</p>
+                <p class="text-xs font-bold text-slate-900">Av. Principal da Clínica, 1000</p>
+                <p class="text-[11px] text-slate-500">Acesso Térreo</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Google Maps Embed -->
+          <div class="rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-sm h-64 sm:h-72">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975416298514!2d-46.65657118440713!3d-23.561348884682975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1680000000000!5m2!1spt-BR!2sbr"
+              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" title="Localização Fazendo Terapia">
+            </iframe>
+          </div>
+
+        </div>
+
+        <!-- Formulário Rápido (5 colunas) -->
+        <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200">
+          <h3 class="text-lg font-bold text-slate-900 mb-1">Contato com a Recepção</h3>
+          <p class="text-xs text-slate-500 mb-4">Envie uma mensagem rápida e receba atendimento imediato.</p>
+
+          <form id="contact-form" class="space-y-3">
+            <div>
+              <label for="form-name" class="block text-xs font-bold text-slate-600 mb-1">Nome Completo</label>
+              <input type="text" id="form-name" required placeholder="Seu nome"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white">
+            </div>
+
+            <div>
+              <label for="form-phone" class="block text-xs font-bold text-slate-600 mb-1">WhatsApp</label>
+              <input type="tel" id="form-phone" required placeholder="(11) 98765-4321"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white">
+            </div>
+
+            <div>
+              <label for="form-specialty" class="block text-xs font-bold text-slate-600 mb-1">Especialidade de
+                Interesse</label>
+              <select id="form-specialty"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white">
+                <option value="Terapia Ocupacional">Terapia Ocupacional</option>
+                <option value="Fonoaudiologia">Fonoaudiologia</option>
+                <option value="Psicologia">Psicologia</option>
+                <option value="Fisioterapia">Fisioterapia</option>
+                <option value="Psicopedagogia">Psicopedagogia</option>
+                <option value="Psicomotricidade">Psicomotricidade</option>
+                <option value="Nutrição">Nutrição</option>
+                <option value="Musicoterapia">Musicoterapia</option>
+                <option value="Neuropsicologia">Neuropsicologia</option>
+                <option value="Médica Especialista">Médica Especialista</option>
+                <option value="Dúvida Geral">Outras / Não sei ainda</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="form-msg" class="block text-xs font-bold text-slate-600 mb-1">Mensagem (opcional)</label>
+              <textarea id="form-msg" rows="2" placeholder="Gostaria de agendar um horário..."
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white"></textarea>
+            </div>
+
+            <button type="submit"
+              class="w-full btn-zap py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Enviar para a Recepção</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-slate-900 text-slate-400 py-10 relative z-10 border-t border-slate-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/images/logo-completa.png" alt="Logo" class="h-8 w-auto bg-white p-1 rounded-lg">
+        <span>© 2026 Fazendo Terapia Clínica Multidisciplinar. Todos os direitos reservados.</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#especialidades" class="hover:text-white transition-colors">Especialidades</a>
+        <a href="#ambientes" class="hover:text-white transition-colors">Ambientes</a>
+        <a href="#planos" class="hover:text-white transition-colors">Planos & Descontos</a>
+        <a href="#contato" class="hover:text-white transition-colors">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= WHATSAPP FLUTUANTE DA RECEPÇÃO ================= -->
+  <div class="floating-whatsapp">
+    <button id="whatsapp-trigger-btn"
+      class="relative w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-2xl transition-transform hover:scale-105"
+      aria-label="WhatsApp da Recepção">
+      <div class="pulse-ring"></div>
+      <i data-lucide="message-circle" class="w-7 h-7"></i>
+      <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-rose-500 rounded-full border-2 border-white"></span>
+    </button>
+
+    <!-- Chat Popup Rápido Responsivo -->
+    <div id="whatsapp-chat-popup"
+      class="hidden absolute bottom-16 sm:bottom-18 right-0 w-[calc(100vw-36px)] sm:w-80 max-w-sm bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50">
+      <div class="bg-emerald-600 p-3.5 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="w-2.5 h-2.5 bg-emerald-300 rounded-full"></span>
+          <span class="font-bold text-sm">Recepção Fazendo Terapia</span>
+        </div>
+        <button id="whatsapp-popup-close" class="text-white/80 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="p-3.5 bg-slate-50 space-y-2 text-xs">
+        <p class="text-slate-600">Olá! Como nossa recepção pode ajudar você hoje?</p>
+        <button
+          class="zap-chip w-full text-left bg-white border border-slate-200 p-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 transition-colors"
+          data-msg="Olá! Gostaria de agendar um horário com a recepção.">
+          🗓️ Agendar Avaliação
+        </button>
+        <button
+          class="zap-chip w-full text-left bg-white border border-slate-200 p-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 transition-colors"
+          data-msg="Olá! Gostaria de saber sobre os planos e descontos de convênio.">
+          💳 Planos & Descontos
+        </button>
+      </div>
+      <div class="p-2.5 bg-white border-t border-slate-100 flex items-center gap-2">
+        <input type="text" id="whatsapp-chat-input" placeholder="Digite sua mensagem..."
+          class="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none">
+        <button id="whatsapp-chat-send" class="p-2 rounded-lg bg-emerald-500 text-white">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL RÁPIDO DE ESPECIALIDADE ================= -->
+  <div id="specialty-modal"
+    class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative max-h-[88vh] overflow-y-auto">
+      <button id="specialty-modal-close" class="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <span id="modal-audience" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-100 text-sky-800"></span>
+      <h3 id="modal-title" class="text-xl font-extrabold text-slate-900 mt-2 mb-2"></h3>
+      <p id="modal-desc" class="text-sm text-slate-600 leading-relaxed mb-6"></p>
+      <a id="modal-zap-btn" href="#" target="_blank"
+        class="w-full btn-zap py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span>Agendar no WhatsApp da Recepção</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ================= LIGHTBOX PARA FOTOS ================= -->
+  <div id="lightbox-modal" class="lightbox-overlay">
+    <div class="relative max-w-4xl w-full mx-4 p-2 flex flex-col items-center">
+      <button id="lightbox-close" class="absolute -top-10 right-0 text-white hover:text-rose-400 p-2">
+        <i data-lucide="x" class="w-7 h-7"></i>
+      </button>
+      <img id="lightbox-img" src="" alt="Ampliação"
+        class="max-h-[80vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl">
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/three-scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
