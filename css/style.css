@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary-blue: #0082d2;
+  --primary-blue-hover: #006bb0;
+  --primary-blue-light: #e6f4fc;
+  
+  --accent-pink: #dc006e;
+  --accent-pink-hover: #b8005b;
+  --accent-pink-light: #fdf2f8;
+  
+  --accent-yellow: #faaa00;
+  --accent-yellow-light: #fffbeb;
+  
+  --accent-green: #5ab400;
+  --accent-green-hover: #489000;
+  --accent-green-light: #f0fdf4;
+  
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --bg-body: #f8fafc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-body);
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Previne zoom indesejado no iOS Safari ao tocar em inputs */
+@media (max-width: 767px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-blue);
+}
+
+/* Canvas 3D Global em Background Flutuando com o Scroll */
+#global-3d-canvas-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.92;
+}
+
+@media (max-width: 767px) {
+  #global-3d-canvas-container {
+    opacity: 0.75;
+  }
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.93);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px -10px rgba(0, 80, 160, 0.08);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+}
+
+/* Gradient Texts */
+.text-gradient-brand {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, #0284c7 40%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Interactive Card Lift */
+.card-hover-3d {
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-hover-3d:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -8px rgba(0, 130, 210, 0.15);
+  }
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, #0070b8 100%);
+  color: #ffffff;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 130, 210, 0.28);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-zap {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
+}
+
+.btn-zap:active {
+  transform: scale(0.98);
+}
+
+/* Carrossel Otimizado para Mobile e Desktop */
+.carousel-wrapper-relative {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  border-radius: 1.5rem;
+  touch-action: pan-y;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .carousel-track {
+    gap: 20px;
+  }
+}
+
+.carousel-slide-2col {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .carousel-slide-2col {
+    flex: 0 0 calc(50% - 10px);
+  }
+}
+
+/* Setas Minimalistas com Tamanho e Posição Acessíveis no Celular */
+.carousel-minimal-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 18px -3px rgba(15, 23, 42, 0.18);
+  color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.carousel-minimal-btn:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.carousel-minimal-btn.prev {
+  left: 6px;
+}
+
+.carousel-minimal-btn.next {
+  right: 6px;
+}
+
+@media (min-width: 768px) {
+  .carousel-minimal-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .carousel-minimal-btn.prev {
+    left: 10px;
+  }
+  .carousel-minimal-btn.next {
+    right: 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-minimal-btn.prev {
+    left: -20px;
+  }
+  .carousel-minimal-btn.next {
+    right: -20px;
+  }
+  .carousel-minimal-btn:hover {
+    background: #ffffff;
+    color: var(--primary-blue);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 10px 24px -4px rgba(0, 130, 210, 0.25);
+  }
+}
+
+/* WhatsApp Flutuante com Posição Segura no Celular */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 18px;
+  z-index: 999;
+}
+
+.pulse-ring {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 999px;
+  background-color: rgba(34, 197, 94, 0.4);
+  animation: pulse-wave 2s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse-wave {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* Lightbox Modal Responsivo */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 16px;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
