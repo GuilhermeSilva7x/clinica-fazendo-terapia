@@ -1,12 +1,9 @@
-// ========================================================
-// FAZENDO TERAPIA - LÓGICA PRINCIPAL (MAIN.JS)
-// 100% Responsivo para Celular e Desktop
-// Carrosséis com Touch Swipe, Modais, WhatsApp e Menu Mobile
-// ========================================================
+// Logica principal da pagina: carrosseis, modais, formulario e WhatsApp
 
-const CLINIC_WHATSAPP = "5511999999999";
+// Telefone da recepcao para mensagens no WhatsApp (Rio Verde - GO)
+const CLINIC_WHATSAPP = "5564992981570";
 
-// Dados concisos das especialidades para o modal rápido
+// Dados das especialidades para o modal rapido
 const SPECIALTIES_DETAILS = {
   to: {
     title: "Terapia Ocupacional",
@@ -60,6 +57,7 @@ const SPECIALTIES_DETAILS = {
   }
 };
 
+// Inicializa os modulos e icones quando o DOM estiver pronto
 document.addEventListener("DOMContentLoaded", () => {
   if (window.lucide) window.lucide.createIcons();
 
@@ -72,10 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
 });
 
-// ========================================================
-// CONTROLE DE CARROSSEL RESPONSIVO (CELULAR: 1 CARD / DESKTOP: 2 CARDS)
-// Suporte nativo a Touch Swipe sem travar o scroll vertical
-// ========================================================
+// Carrossel com 1 item no celular e 2 no desktop, com suporte a deslizar o dedo
 function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId) {
   const container = document.getElementById(containerId);
   const prevBtn = document.getElementById(prevBtnId);
@@ -90,6 +85,7 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
 
   let currentIndex = 0;
 
+  // Calcula itens visiveis e limite de navegacao conforme a tela
   function getStepAndTotal() {
     const isDesktop = window.innerWidth >= 768;
     const step = isDesktop ? 2 : 1;
@@ -97,18 +93,17 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
     return { isDesktop, step, maxIndex };
   }
 
+  // Move os slides e atualiza botoes e marcadores
   function updateCarousel() {
     const { isDesktop, maxIndex } = getStepAndTotal();
     currentIndex = Math.min(Math.max(currentIndex, 0), maxIndex);
 
-    // Deslocamento pixel-perfect baseado no offset real do slide
     const targetSlide = slides[currentIndex];
     const baseOffset = slides[0].offsetLeft;
     const offsetPx = targetSlide ? (targetSlide.offsetLeft - baseOffset) : 0;
 
     track.style.transform = `translateX(-${offsetPx}px)`;
 
-    // Atualiza estado visual das setas
     if (prevBtn) {
       prevBtn.style.opacity = currentIndex === 0 ? "0.3" : "1";
       prevBtn.style.pointerEvents = currentIndex === 0 ? "none" : "auto";
@@ -118,7 +113,6 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
       nextBtn.style.pointerEvents = currentIndex >= maxIndex ? "none" : "auto";
     }
 
-    // Atualiza indicadores (dots)
     if (dotsContainer) {
       const dots = dotsContainer.querySelectorAll("button");
       const activeDotIdx = Math.floor(currentIndex / (isDesktop ? 2 : 1));
@@ -132,6 +126,7 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
     }
   }
 
+  // Gera marcadores inferiores conforme a quantidade de paginas
   function renderDots() {
     if (!dotsContainer) return;
     const { isDesktop } = getStepAndTotal();
@@ -150,6 +145,7 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
     }
   }
 
+  // Clique para avancar slide
   if (nextBtn) {
     nextBtn.addEventListener("click", () => {
       const { step } = getStepAndTotal();
@@ -158,6 +154,7 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
     });
   }
 
+  // Clique para voltar slide
   if (prevBtn) {
     prevBtn.addEventListener("click", () => {
       const { step } = getStepAndTotal();
@@ -166,7 +163,7 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
     });
   }
 
-  // Touch Swipe fluido no celular (não bloqueia a rolagem vertical)
+  // Gesto de deslizar (swipe) em telas de toque
   let startX = 0;
   let startY = 0;
   let isTracking = false;
@@ -213,6 +210,7 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
     isHorizontalSwipe = false;
   }, { passive: true });
 
+  // Recalcula carrossel ao mudar o tamanho da tela
   window.addEventListener("resize", () => {
     renderDots();
     updateCarousel();
@@ -222,7 +220,7 @@ function initTwoCardCarousel(containerId, prevBtnId, nextBtnId, dotsContainerId)
   updateCarousel();
 }
 
-// Modal de Detalhes da Especialidade
+// Modal com informacoes da especialidade e botao direto de agendamento
 function initSpecialtyModal() {
   const modal = document.getElementById("specialty-modal");
   const modalClose = document.getElementById("specialty-modal-close");
@@ -242,7 +240,7 @@ function initSpecialtyModal() {
       document.getElementById("modal-desc").innerText = data.desc;
 
       const zapBtn = document.getElementById("modal-zap-btn");
-      const msg = encodeURIComponent(`Olá, Recepção da Fazendo Terapia! Gostaria de informações sobre *${data.title}*.`);
+      const msg = encodeURIComponent(`Olá! Gostaria de informações sobre atendimento e agendamento para *${data.title}*.\n\nDesde já, agradeço pela atenção.`);
       zapBtn.href = `https://wa.me/${CLINIC_WHATSAPP}?text=${msg}`;
 
       modal.classList.remove("hidden");
@@ -262,7 +260,7 @@ function initSpecialtyModal() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 }
 
-// Lightbox para imagens (Ambientes & Planos)
+// Visualizador ampliado de fotos (lightbox)
 function initAmbientesLightbox() {
   const lightbox = document.getElementById("lightbox-modal");
   const lightboxImg = document.getElementById("lightbox-img");
@@ -289,7 +287,7 @@ function initAmbientesLightbox() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 }
 
-// WhatsApp Widget & Recepção
+// Widget flutuante de conversa rapida no WhatsApp
 function initWhatsAppReception() {
   const trigger = document.getElementById("whatsapp-trigger-btn");
   const popup = document.getElementById("whatsapp-chat-popup");
@@ -303,6 +301,7 @@ function initWhatsAppReception() {
   trigger.addEventListener("click", () => popup.classList.toggle("hidden"));
   if (closeBtn) closeBtn.addEventListener("click", () => popup.classList.add("hidden"));
 
+  // Botoes de mensagens prontas
   chips.forEach(chip => {
     chip.addEventListener("click", () => {
       const msg = chip.getAttribute("data-msg");
@@ -310,9 +309,10 @@ function initWhatsAppReception() {
     });
   });
 
+  // Envio da mensagem digitada
   if (sendBtn && input) {
     function send() {
-      const text = input.value.trim() || "Olá, gostaria de falar com a recepção da Fazendo Terapia.";
+      const text = input.value.trim() || "Olá, equipe da Fazendo Terapia! Gostaria de informações sobre atendimentos e agendamento.";
       window.open(`https://wa.me/${CLINIC_WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank");
     }
     sendBtn.addEventListener("click", send);
@@ -320,7 +320,7 @@ function initWhatsAppReception() {
   }
 }
 
-// Formulário Rápido
+// Formulario de contato integrado com o WhatsApp da recepcao
 function initContactForm() {
   const form = document.getElementById("contact-form");
   if (!form) return;
@@ -331,14 +331,15 @@ function initContactForm() {
     const phone = document.getElementById("form-phone").value.trim();
     const specialty = document.getElementById("form-specialty").value;
     const msg = document.getElementById("form-msg").value.trim();
+    const observation = msg ? msg : "Gostaria de verificar a disponibilidade de horários e agendar uma avaliação inicial.";
 
-    const formatted = `*CONTATO SITE - FAZENDO TERAPIA*\n👤 *Nome:* ${name}\n📱 *WhatsApp:* ${phone}\n🩺 *Especialidade:* ${specialty}\n💬 *Mensagem:* ${msg || "Gostaria de agendar uma conversa inicial."}`;
+    const formatted = `Olá, equipe da Fazendo Terapia!\n\nGostaria de solicitar informações sobre atendimento:\n\n*Nome:* ${name}\n\n*Telefone:* ${phone}\n\n*Especialidade:* ${specialty}\n\n*Observação:* ${observation}\n\nDesde já, agradeço pela atenção.`;
     window.open(`https://wa.me/${CLINIC_WHATSAPP}?text=${encodeURIComponent(formatted)}`, "_blank");
     form.reset();
   });
 }
 
-// Menu Mobile Drawer
+// Menu lateral para celulares
 function initMobileNav() {
   const btn = document.getElementById("mobile-menu-btn");
   const nav = document.getElementById("mobile-nav");
@@ -361,7 +362,7 @@ function initMobileNav() {
   if (close) close.addEventListener("click", closeMenu);
   links.forEach(l => l.addEventListener("click", closeMenu));
 
-  // Fechar ao tocar no fundo escuro
+  // Fecha ao tocar fora do menu
   nav.addEventListener("click", (e) => {
     if (e.target === nav) closeMenu();
   });

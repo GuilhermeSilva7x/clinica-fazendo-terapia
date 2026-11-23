@@ -1,14 +1,10 @@
-// ========================================================
-// FAZENDO TERAPIA - CENA 3D GLOBAL (AUTISMO & NEURODIVERSIDADE)
-// Escultura 3D de Quebra-Cabeça Interligado, Laço do Infinito
-// e Anéis Orbitais com movimento dinâmico atrelado ao scroll
-// ========================================================
+// Cena 3D global: quebra-cabeca do autismo, laco do infinito e aneis interligados com Three.js
 
 (function () {
   const bgCanvasContainer = document.getElementById('global-3d-canvas-container');
   if (!bgCanvasContainer) return;
 
-  // Scene, Camera, Renderer Global
+  // Cria cena, camera com perspectiva e renderizador WebGL
   const scene = new THREE.Scene();
   let width = window.innerWidth;
   let height = window.innerHeight;
@@ -27,7 +23,7 @@
   renderer.outputEncoding = THREE.sRGBEncoding;
   bgCanvasContainer.appendChild(renderer.domElement);
 
-  // Iluminação de estúdio
+  // Luz ambiente e pontos de luz coloridos nas cores da marca
   const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
   scene.add(ambientLight);
 
@@ -35,25 +31,23 @@
   keyLight.position.set(5, 7, 7);
   scene.add(keyLight);
 
-  const blueLight = new THREE.PointLight(0x0082d2, 2.5, 25);
+  const blueLight = new THREE.PointLight(0x0082d2, 3.0, 26);
   blueLight.position.set(-6, -4, 4);
   scene.add(blueLight);
 
-  const pinkLight = new THREE.PointLight(0xdc006e, 2.2, 25);
+  const pinkLight = new THREE.PointLight(0xdc006e, 2.8, 26);
   pinkLight.position.set(6, -4, 4);
   scene.add(pinkLight);
 
-  const yellowLight = new THREE.PointLight(0xfaaa00, 1.8, 20);
+  const yellowLight = new THREE.PointLight(0xfaaa00, 2.2, 22);
   yellowLight.position.set(0, 5, 4);
   scene.add(yellowLight);
 
-  // Grupo Mestre Geral que viaja com o scroll da página
+  // Grupo principal que se move e gira conforme a rolagem da pagina
   const masterGroup = new THREE.Group();
   scene.add(masterGroup);
 
-  // ----------------------------------------------------
-  // 1. ESCULTURA CENTRAL 3D DO AUTISMO (QUEBRA-CABEÇA MULTIDISCIPLINAR)
-  // ----------------------------------------------------
+  // Desenha o formato 2D de uma peca de quebra-cabeca com encaixes
   function createPuzzleShape(size, tabRadius) {
     const shape = new THREE.Shape();
     const half = size / 2;
@@ -64,7 +58,7 @@
     shape.lineTo(-tr * 0.7, -half);
     shape.bezierCurveTo(-tr * 0.9, -half - tr * 1.4, tr * 0.9, -half - tr * 1.4, tr * 0.7, -half);
     shape.lineTo(half, -half);
-    // Borda direita com encaixe
+    // Borda direita com encaixe interno
     shape.lineTo(half, -tr * 0.7);
     shape.bezierCurveTo(half - tr * 1.4, -tr * 0.9, half - tr * 1.4, tr * 0.9, half, tr * 0.7);
     shape.lineTo(half, half);
@@ -72,7 +66,7 @@
     shape.lineTo(tr * 0.7, half);
     shape.bezierCurveTo(tr * 0.9, half + tr * 1.4, -tr * 0.9, half + tr * 1.4, -tr * 0.7, half);
     shape.lineTo(-half, half);
-    // Borda esquerda com encaixe
+    // Borda esquerda com encaixe interno
     shape.lineTo(-half, tr * 0.7);
     shape.bezierCurveTo(-half + tr * 1.4, tr * 0.9, -half + tr * 1.4, -tr * 0.9, -half, -tr * 0.7);
     shape.lineTo(-half, -half);
@@ -80,6 +74,7 @@
     return shape;
   }
 
+  // Gera a geometria 3D com chanfro e profundidade
   const puzzleShape = createPuzzleShape(1.3, 0.38);
   const puzzleGeo = new THREE.ExtrudeGeometry(puzzleShape, {
     steps: 2,
@@ -91,7 +86,7 @@
   });
   puzzleGeo.center();
 
-  // Cores da clínica aplicadas nas 4 peças do núcleo central
+  // Escultura central: 4 pecas interligadas nas 4 cores da clinica
   const coreColors = [
     { color: 0x0082d2, x: -0.72, y: 0.72, rotZ: 0 },             // Azul
     { color: 0xdc006e, x: 0.72, y: 0.72, rotZ: Math.PI / 2 },    // Rosa
@@ -106,7 +101,7 @@
     const mat = new THREE.MeshPhysicalMaterial({
       color: cfg.color,
       emissive: cfg.color,
-      emissiveIntensity: 0.2,
+      emissiveIntensity: 0.35,
       roughness: 0.15,
       metalness: 0.2,
       clearcoat: 0.85,
@@ -119,9 +114,7 @@
     puzzleSculpture.add(mesh);
   });
 
-  // ----------------------------------------------------
-  // 2. LAÇO DO INFINITO 3D DA NEURODIVERSIDADE (ABRAÇA O QUEBRA-CABEÇA)
-  // ----------------------------------------------------
+  // Curva 3D do laco do infinito (simbolo da neurodiversidade)
   class InfinityCurve extends THREE.Curve {
     constructor(scale = 2.6) {
       super();
@@ -138,6 +131,7 @@
     }
   }
 
+  // Tubo do primeiro laco do infinito (azul)
   const infinityCurve = new InfinityCurve(2.8);
   const infinityGeo = new THREE.TubeGeometry(infinityCurve, 120, 0.085, 16, true);
   const infinityMat = new THREE.MeshStandardMaterial({
@@ -152,7 +146,7 @@
   infinityMesh.rotation.x = 0.4;
   masterGroup.add(infinityMesh);
 
-  // Segundo laço dourado de apoio
+  // Segundo laco do infinito cruzado (dourado)
   const infinityCurve2 = new InfinityCurve(3.2);
   const infinityGeo2 = new THREE.TubeGeometry(infinityCurve2, 120, 0.05, 14, true);
   const infinityMat2 = new THREE.MeshStandardMaterial({
@@ -167,9 +161,7 @@
   infinityMesh2.rotation.y = 0.35;
   masterGroup.add(infinityMesh2);
 
-  // ----------------------------------------------------
-  // 3. ANÉIS ORBITAIS DE CONEXÃO MULTIDISCIPLINAR
-  // ----------------------------------------------------
+  // Anel orbital rosa com esfera orbitante verde
   const ringGeo = new THREE.TorusGeometry(3.6, 0.035, 16, 64);
   const ringMat = new THREE.MeshStandardMaterial({
     color: 0xdc006e,
@@ -183,16 +175,13 @@
   orbitalRing.rotation.y = -0.4;
   masterGroup.add(orbitalRing);
 
-  // Esfera luminosa orbitando sobre o anel
   const orbGeo = new THREE.SphereGeometry(0.14, 16, 16);
   const orbMat = new THREE.MeshBasicMaterial({ color: 0x5ab400 });
   const orbMesh = new THREE.Mesh(orbGeo, orbMat);
   orbitalRing.add(orbMesh);
   orbMesh.position.set(3.6, 0, 0);
 
-  // ----------------------------------------------------
-  // 4. PEÇAS DE QUEBRA-CABEÇA FLUTUANTES NO FUNDO
-  // ----------------------------------------------------
+  // Pecas de quebra-cabeca menores flutuando pelo espaco de fundo
   const floaters = [];
   const floaterCount = 10;
   const colorsList = [0x0082d2, 0xdc006e, 0xfaaa00, 0x5ab400];
@@ -204,7 +193,7 @@
       roughness: 0.25,
       metalness: 0.2,
       transparent: true,
-      opacity: 0.5
+      opacity: 0.75
     });
 
     const smGeo = puzzleGeo.clone();
@@ -233,9 +222,7 @@
     });
   }
 
-  // ----------------------------------------------------
-  // 5. MOUSE, TOQUE E SCROLL DA PÁGINA INTEIRA
-  // ----------------------------------------------------
+  // Captura do scroll, movimento do mouse e toque no celular
   let mouseX = 0;
   let mouseY = 0;
   let scrollY = 0;
@@ -260,6 +247,7 @@
     }
   }, { passive: true });
 
+  // Redimensionamento responsivo da tela
   function onResize() {
     width = window.innerWidth;
     height = window.innerHeight;
@@ -275,9 +263,7 @@
   window.addEventListener('resize', onResize);
   window.addEventListener('orientationchange', onResize);
 
-  // ----------------------------------------------------
-  // 6. LOOP DE ANIMAÇÃO COM TRANSIÇÃO AO ROLAR O SITE
-  // ----------------------------------------------------
+  // Loop de renderizacao e animacao suave dos objetos 3D
   const clock = new THREE.Clock();
 
   function animate() {
@@ -286,7 +272,7 @@
     const elapsedTime = clock.getElapsedTime();
     const scrollProgress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
 
-    // Movimentação tridimensional acompanhando o scroll por todo o site
+    // Ajusta posicao e escala dependendo se e celular ou desktop
     let targetX, targetY, targetScale;
 
     if (isMobile) {
@@ -299,28 +285,28 @@
       targetScale = 0.95 - scrollProgress * 0.2;
     }
 
-    // Interpolação suave de posição e escala
+    // Suavizacao de movimento
     masterGroup.position.x += (targetX - masterGroup.position.x) * 0.05;
     masterGroup.position.y += (targetY - masterGroup.position.y) * 0.05;
     masterGroup.scale.set(targetScale, targetScale, targetScale);
 
-    // Rotação suave respondendo ao cursor e à descida da página
+    // Rotacao reagindo ao scroll e ao ponteiro
     const targetRotY = elapsedTime * 0.35 + (scrollProgress * Math.PI * 3.2) + mouseX * 0.4;
     const targetRotX = 0.2 + Math.sin(scrollProgress * Math.PI * 2) * 0.5 + mouseY * 0.25;
 
     masterGroup.rotation.y += (targetRotY - masterGroup.rotation.y) * 0.05;
     masterGroup.rotation.x += (targetRotX - masterGroup.rotation.x) * 0.05;
 
-    // Rotação contínua dos laços e anel orbital
+    // Rotacao continua dos lacos e anel
     infinityMesh.rotation.z += 0.006;
     infinityMesh2.rotation.z -= 0.005;
     orbitalRing.rotation.z += 0.008;
 
-    // Pulsação suave do quebra-cabeça central (respiração do desenvolvimento)
+    // Pulsacao sutil do quebra-cabeca central
     const pulse = 1 + Math.sin(elapsedTime * 1.8) * 0.035;
     puzzleSculpture.scale.set(pulse, pulse, pulse);
 
-    // Flutuação das peças de fundo
+    // Flutuacao e rotacao das pecas secundarias
     floaters.forEach(fl => {
       fl.mesh.rotation.x += fl.rotSpeedX;
       fl.mesh.rotation.y += fl.rotSpeedY;

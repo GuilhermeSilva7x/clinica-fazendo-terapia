@@ -1,28 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 
+/* Variaveis e cores da marca */
 :root {
   --primary-blue: #0077c5;
   --primary-blue-hover: #005f9e;
   --primary-blue-light: #e0f2fe;
-  
+
   --accent-pink: #d10068;
   --accent-pink-hover: #ad0056;
   --accent-pink-light: #fdf2f8;
-  
+
   --accent-yellow: #d97706;
   --accent-yellow-light: #fffbeb;
-  
+
   --accent-green: #15803d;
   --accent-green-hover: #166534;
   --accent-green-light: #f0fdf4;
-  
+
   --text-main: #090d16;
   --text-body: #1e293b;
   --text-muted: #334155;
-  /* Fundo ligeiramente mais encorpado e elegante para dar contraste máximo aos cards e fontes */
   --bg-body: #ecf1f6;
 }
 
+/* Reset basico e remocao de highlight de toque */
 * {
   margin: 0;
   padding: 0;
@@ -30,50 +31,62 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Configuracoes base de tipografia e rolagem com degradê sutil e colorido da marca */
 html {
   scroll-behavior: smooth;
   font-family: 'Plus Jakarta Sans', sans-serif;
   color: var(--text-body);
-  background-color: var(--bg-body);
+  background-color: #f0f7ff;
 }
 
 body {
   overflow-x: hidden;
   width: 100%;
   color: var(--text-body);
-  background-color: var(--bg-body);
+  background: linear-gradient(180deg, #f0f7ff 0%, #fdf2f8 25%, #fffbeb 50%, #f0fdf4 75%, #f1f5f9 100%);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, .font-heading {
+h1,
+h2,
+h3,
+h4,
+.font-heading {
   font-family: 'Outfit', sans-serif;
   color: var(--text-main);
 }
 
-/* Previne zoom indesejado no iOS Safari ao tocar em inputs */
+/* Previne zoom automatico em inputs no iOS */
 @media (max-width: 767px) {
-  input, select, textarea {
+
+  input,
+  select,
+  textarea {
     font-size: 16px !important;
   }
 }
 
-/* Scrollbar personalizado */
+/* Barra de rolagem personalizada */
 ::-webkit-scrollbar {
   width: 7px;
 }
+
 ::-webkit-scrollbar-track {
   background: #e2e8f0;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #94a3b8;
   border-radius: 999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-blue);
 }
 
-/* Canvas 3D Global em Background Flutuando com o Scroll */
+/* Container do fundo 3D com Three.js */
 #global-3d-canvas-container {
   position: fixed;
   inset: 0;
@@ -81,20 +94,22 @@ h1, h2, h3, h4, .font-heading {
   height: 100vh;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.88;
+  opacity: 0.95;
 }
 
 @media (max-width: 767px) {
   #global-3d-canvas-container {
-    opacity: 0.65;
+    opacity: 0.85;
   }
 }
 
-/* Cards com Fundo Branco Nítido e Alto Contraste */
+/* Paineis com transparencia suave para transparecer as cores do fundo e do 3D */
 .glass-panel {
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 30px -4px rgba(15, 23, 42, 0.08), 0 2px 8px -2px rgba(15, 23, 42, 0.04);
 }
 
 .glass-nav {
@@ -105,14 +120,14 @@ h1, h2, h3, h4, .font-heading {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
-/* Gradient Texts */
+/* Texto com gradiente da marca */
 .text-gradient-brand {
   background: linear-gradient(135deg, #0077c5 0%, #0284c7 45%, #d10068 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Interactive Card Lift */
+/* Efeito de elevacao ao passar o mouse */
 .card-hover-3d {
   transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   will-change: transform;
@@ -126,7 +141,7 @@ h1, h2, h3, h4, .font-heading {
   }
 }
 
-/* Buttons */
+/* Botoes de acao principal e WhatsApp */
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-blue) 0%, #005f9e 100%);
   color: #ffffff;
@@ -149,7 +164,7 @@ h1, h2, h3, h4, .font-heading {
   transform: scale(0.98);
 }
 
-/* Carrossel Otimizado para Mobile e Desktop */
+/* Estrutura do carrossel responsivo */
 .carousel-wrapper-relative {
   position: relative;
   width: 100%;
@@ -187,7 +202,7 @@ h1, h2, h3, h4, .font-heading {
   }
 }
 
-/* Setas Minimalistas com Alto Contraste */
+/* Botoes de navegacao do carrossel */
 .carousel-minimal-btn {
   position: absolute;
   top: 50%;
@@ -224,9 +239,11 @@ h1, h2, h3, h4, .font-heading {
     width: 46px;
     height: 46px;
   }
+
   .carousel-minimal-btn.prev {
     left: 10px;
   }
+
   .carousel-minimal-btn.next {
     right: 10px;
   }
@@ -236,9 +253,11 @@ h1, h2, h3, h4, .font-heading {
   .carousel-minimal-btn.prev {
     left: -20px;
   }
+
   .carousel-minimal-btn.next {
     right: -20px;
   }
+
   .carousel-minimal-btn:hover {
     background: #ffffff;
     color: var(--primary-blue);
@@ -248,7 +267,7 @@ h1, h2, h3, h4, .font-heading {
   }
 }
 
-/* WhatsApp Flutuante */
+/* Botao flutuante com animacao do WhatsApp */
 .floating-whatsapp {
   position: fixed;
   bottom: 20px;
@@ -269,12 +288,23 @@ h1, h2, h3, h4, .font-heading {
 }
 
 @keyframes pulse-wave {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.3); opacity: 0; }
-  100% { transform: scale(1.3); opacity: 0; }
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
 }
 
-/* Lightbox Modal Responsivo */
+/* Lightbox para visualizacao ampliada de fotos */
 .lightbox-overlay {
   position: fixed;
   inset: 0;

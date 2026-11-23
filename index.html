@@ -8,10 +8,10 @@
   <meta name="description"
     content="Clínica Multidisciplinar Fazendo Terapia especializada em Neurodesenvolvimento, Terapia Ocupacional, Fonoaudiologia, Psicologia, Fisioterapia e especialidades integradas.">
 
-  <!-- Favicon -->
+  <!-- Icone da aba (Favicon) -->
   <link rel="icon" type="image/png" href="assets/images/logo-icone.png">
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Framework visual Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Fontes Google -->
@@ -21,15 +21,16 @@
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <!-- Lucide Icons -->
+  <!-- Biblioteca de icones Lucide -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Three.js CDN -->
+  <!-- Biblioteca Three.js para renderizacao 3D -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- Custom CSS -->
+  <!-- Estilos customizados da clinica -->
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- Cores personalizadas no Tailwind -->
   <script>
     tailwind.config = {
       theme: {
@@ -49,22 +50,32 @@
   </script>
 </head>
 
-<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden relative selection:bg-sky-500 selection:text-white">
+<body
+  class="text-slate-800 antialiased overflow-x-hidden relative selection:bg-sky-500 selection:text-white">
 
-  <!-- ================= CANVAS 3D GLOBAL (ESCULTURA 3D DE QUEBRA-CABEÇA & NEURODIVERSIDADE) ================= -->
-  <!-- Acompanha e reage ao scroll da página inteira -->
+  <!-- Auras coloridas de fundo que dao vida e vivacidade a pagina -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-sky-200/50 blur-3xl"></div>
+    <div class="absolute top-1/4 -right-24 w-96 h-96 rounded-full bg-pink-200/45 blur-3xl"></div>
+    <div class="absolute top-2/4 -left-20 w-96 h-96 rounded-full bg-amber-200/40 blur-3xl"></div>
+    <div class="absolute top-3/4 -right-20 w-96 h-96 rounded-full bg-emerald-200/40 blur-3xl"></div>
+  </div>
+
+  <!-- Fundo 3D interativo com Three.js (quebra-cabeca e neurodiversidade) -->
   <div id="global-3d-canvas-container"></div>
 
-  <!-- ================= NAVBAR ================= -->
+  <!-- Barra de navegacao fixa superior -->
   <nav class="sticky top-0 z-40 glass-nav">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
-        <!-- Logo com Presença Elegante e Protegida contra estouro no Celular -->
+        <!-- Logo principal da clinica com protecao de tamanho para celular -->
         <a href="#" class="flex items-center gap-2 shrink-0">
-          <img src="assets/images/logo-completa.png" alt="Fazendo Terapia" class="h-10 sm:h-12 md:h-14 w-auto object-contain" style="max-height: 48px; max-width: 170px; object-fit: contain;">
+          <img src="assets/images/logo-completa.png" alt="Fazendo Terapia"
+            class="h-10 sm:h-12 md:h-14 w-auto object-contain"
+            style="max-height: 48px; max-width: 170px; object-fit: contain;">
         </a>
 
-        <!-- Menu Desktop -->
+        <!-- Menu de navegacao para computadores -->
         <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-700">
           <a href="#especialidades" class="hover:text-sky-600 transition-colors">Especialidades</a>
           <a href="#ambientes" class="hover:text-sky-600 transition-colors">Ambientes</a>
@@ -72,16 +83,25 @@
           <a href="#contato" class="hover:text-sky-600 transition-colors">Contato & Localização</a>
         </div>
 
-        <!-- Botão WhatsApp Recepção -->
+        <!-- Botao de contato rapido via WhatsApp -->
         <div class="hidden sm:flex items-center gap-3">
-          <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20Recep%C3%A7%C3%A3o%20da%20Fazendo%20Terapia!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20e%20agendamento."
+          <a href="https://www.instagram.com/fazendo.terapiarv/" target="_blank"
+            class="p-2 text-slate-700 hover:text-pink-600 transition-colors rounded-full hover:bg-slate-100 flex items-center justify-center"
+            aria-label="Instagram Fazendo Terapia" title="Instagram: @fazendo.terapiarv">
+            <svg class="w-5 h-5 text-pink-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="https://wa.me/5564992981570?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20informa%C3%A7%C3%B5es%20sobre%20atendimentos%20e%20agendamento%20de%20consultas.%0A%0ADesde%20j%C3%A1%2C%20agrade%C3%A7o%20pela%20aten%C3%A7%C3%A3o."
             target="_blank" class="btn-zap px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2">
             <i data-lucide="message-circle" class="w-4 h-4"></i>
             <span>Falar com a Recepção</span>
           </a>
         </div>
 
-        <!-- Menu Mobile Toggle -->
+        <!-- Botao para abrir menu no celular -->
         <div class="flex lg:hidden">
           <button id="mobile-menu-btn" class="p-2 text-slate-700 hover:bg-slate-100 rounded-xl" aria-label="Abrir menu">
             <i data-lucide="menu" class="w-6 h-6"></i>
@@ -91,7 +111,7 @@
     </div>
   </nav>
 
-  <!-- Drawer Mobile -->
+  <!-- Menu lateral gaveta para celulares -->
   <div id="mobile-nav"
     class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm transform translate-x-full transition-transform duration-300 lg:hidden flex justify-end">
     <div class="bg-white w-3/4 max-w-xs h-full p-6 shadow-2xl flex flex-col justify-between">
@@ -107,9 +127,18 @@
           <a href="#ambientes" class="mobile-link hover:text-sky-600 py-1">Ambientes</a>
           <a href="#planos" class="mobile-link hover:text-sky-600 py-1">Planos & Descontos</a>
           <a href="#contato" class="mobile-link hover:text-sky-600 py-1">Contato & Localização</a>
+          <a href="https://www.instagram.com/fazendo.terapiarv/" target="_blank"
+            class="mobile-link hover:text-pink-600 py-1 flex items-center gap-2">
+            <svg class="w-4 h-4 text-pink-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+            <span>Instagram: @fazendo.terapiarv</span>
+          </a>
         </div>
       </div>
-      <a href="https://wa.me/5511999999999" target="_blank"
+      <a href="https://wa.me/5564992981570" target="_blank"
         class="w-full btn-zap py-3 rounded-xl font-bold text-center flex items-center justify-center gap-2 text-sm">
         <i data-lucide="message-circle" class="w-4 h-4"></i>
         WhatsApp da Recepção
@@ -117,14 +146,14 @@
     </div>
   </div>
 
-  <!-- ================= HERO ================= -->
+  <!-- Secao principal de apresentacao (Hero) -->
   <section class="relative pt-6 pb-6 sm:pt-10 sm:pb-12 lg:pt-16 lg:pb-20 z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
         <div class="lg:col-span-7 space-y-5 text-center lg:text-left">
 
-          <!-- Título que integra a marca de forma orgânica e profissional -->
+          <!-- Titulo principal da clinica -->
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-tight leading-tight">
             Na <span class="text-gradient-brand">Fazendo Terapia</span>, cuidamos do desenvolvimento de crianças e
             adultos.
@@ -136,7 +165,7 @@
           </p>
 
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-1">
-            <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20e%20agendamento%20na%20Fazendo%20Terapia."
+            <a href="https://wa.me/5564992981570?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20os%20atendimentos%20e%20avalia%C3%A7%C3%B5es%20da%20cl%C3%ADnica.%0A%0ADesde%20j%C3%A1%2C%20agrade%C3%A7o."
               target="_blank"
               class="w-full sm:w-auto btn-zap px-8 py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2.5">
               <i data-lucide="message-circle" class="w-4 h-4"></i>
@@ -160,36 +189,36 @@
 
         </div>
 
-        <!-- Coluna lateral visível apenas em telas grandes (evita espaço em branco no celular) -->
+        <!-- Espaco lateral reservado para a escultura 3D no computador -->
         <div class="hidden lg:flex lg:col-span-5 lg:h-[440px] items-center justify-center relative"></div>
 
       </div>
     </div>
   </section>
 
-  <!-- ================= CARROSSEL DE ESPECIALIDADES (2 POR LINHA) ================= -->
+  <!-- Secao de especialidades com carrossel de 2 cards -->
   <section id="especialidades" class="py-10 sm:py-16 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- Título da Seção destacando a Marca com Elegância -->
+      <!-- Titulo da secao de especialidades -->
       <div class="mb-8">
         <span class="text-xs font-bold uppercase tracking-wider text-sky-600">Equipe Multidisciplinar</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Especialidades da Fazendo Terapia</h2>
       </div>
 
-      <!-- Wrapper Relativo para as Setas Minimalistas sobre o Carrossel -->
+      <!-- Estrutura do carrossel com setas e slides -->
       <div class="carousel-wrapper-relative">
 
-        <!-- Seta Minimalista Esquerda (sobre os cards) -->
+        <!-- Seta anterior -->
         <button id="spec-prev" class="carousel-minimal-btn prev" aria-label="Especialidades anteriores">
           <i data-lucide="chevron-left" class="w-6 h-6 stroke-[1.75]"></i>
         </button>
 
-        <!-- Viewport do Carrossel -->
+        <!-- Viewport do carrossel -->
         <div id="carousel-especialidades" class="carousel-viewport py-2">
           <div class="carousel-track">
 
-            <!-- 1. Terapia Ocupacional -->
+            <!-- Card 1: Terapia Ocupacional -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -216,7 +245,7 @@
               </div>
             </div>
 
-            <!-- 2. Fonoaudiologia -->
+            <!-- Card 2: Fonoaudiologia -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -243,7 +272,7 @@
               </div>
             </div>
 
-            <!-- 3. Psicologia Clínica -->
+            <!-- Card 3: Psicologia Clinica -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -270,7 +299,7 @@
               </div>
             </div>
 
-            <!-- 4. Fisioterapia Neurofuncional -->
+            <!-- Card 4: Fisioterapia Neurofuncional -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -297,7 +326,7 @@
               </div>
             </div>
 
-            <!-- 5. Psicopedagogia -->
+            <!-- Card 5: Psicopedagogia -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -322,7 +351,7 @@
               </div>
             </div>
 
-            <!-- 6. Psicomotricidade -->
+            <!-- Card 6: Psicomotricidade -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -347,7 +376,7 @@
               </div>
             </div>
 
-            <!-- 7. Nutrição Clínica -->
+            <!-- Card 7: Nutricao Clinica -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -374,7 +403,7 @@
               </div>
             </div>
 
-            <!-- 8. Musicoterapia -->
+            <!-- Card 8: Musicoterapia -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -400,7 +429,7 @@
               </div>
             </div>
 
-            <!-- 9. Neuropsicologia -->
+            <!-- Card 9: Neuropsicologia -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border border-slate-100">
@@ -427,7 +456,7 @@
               </div>
             </div>
 
-            <!-- 10. Médica Especialista -->
+            <!-- Card 10: Medica Especialista -->
             <div class="carousel-slide-2col">
               <div
                 class="glass-panel p-6 sm:p-7 rounded-3xl h-full flex flex-col justify-between card-hover-3d border-2 border-pink-200">
@@ -457,20 +486,20 @@
           </div>
         </div>
 
-        <!-- Seta Minimalista Direita (sobre os cards) -->
+        <!-- Seta seguinte -->
         <button id="spec-next" class="carousel-minimal-btn next" aria-label="Próximas especialidades">
           <i data-lucide="chevron-right" class="w-6 h-6 stroke-[1.75]"></i>
         </button>
 
       </div>
 
-      <!-- Indicadores do Carrossel (Dots) -->
+      <!-- Marcadores de paginacao do carrossel -->
       <div id="spec-dots" class="flex justify-center items-center gap-2 mt-6"></div>
 
     </div>
   </section>
 
-  <!-- ================= CARROSSEL DE AMBIENTES (APENAS IMAGENS - 2 POR LINHA) ================= -->
+  <!-- Secao de fotos dos ambientes da clinica -->
   <section id="ambientes" class="py-10 sm:py-16 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -479,15 +508,15 @@
         <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Ambientes da Clínica</h2>
       </div>
 
-      <!-- Wrapper Relativo para as Setas Minimalistas sobre as fotos -->
+      <!-- Estrutura do carrossel de fotos -->
       <div class="carousel-wrapper-relative">
 
-        <!-- Seta Minimalista Esquerda (sobre as fotos) -->
+        <!-- Seta anterior -->
         <button id="amb-prev" class="carousel-minimal-btn prev" aria-label="Ambientes anteriores">
           <i data-lucide="chevron-left" class="w-6 h-6 stroke-[1.75]"></i>
         </button>
 
-        <!-- Viewport do Carrossel de Fotos -->
+        <!-- Viewport das fotos -->
         <div id="carousel-ambientes" class="carousel-viewport py-2">
           <div class="carousel-track">
 
@@ -500,7 +529,7 @@
               </div>
             </div>
 
-            <!-- Foto 2: Recepção / Espera -->
+            <!-- Foto 2: Recepcao e sala de espera -->
             <div class="carousel-slide-2col">
               <div
                 class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
@@ -509,7 +538,7 @@
               </div>
             </div>
 
-            <!-- Foto 3: Espaço Kids -->
+            <!-- Foto 3: Espaco infantil / Kids -->
             <div class="carousel-slide-2col">
               <div
                 class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
@@ -518,7 +547,7 @@
               </div>
             </div>
 
-            <!-- Foto 4: Sala Atendimento 1 -->
+            <!-- Foto 4: Sala de atendimento 1 -->
             <div class="carousel-slide-2col">
               <div
                 class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
@@ -527,7 +556,7 @@
               </div>
             </div>
 
-            <!-- Foto 5: Sala Atendimento 2 -->
+            <!-- Foto 5: Sala de atendimento 2 -->
             <div class="carousel-slide-2col">
               <div
                 class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
@@ -536,7 +565,7 @@
               </div>
             </div>
 
-            <!-- Foto 6: Espaço Aberto -->
+            <!-- Foto 6: Area aberta / quintal -->
             <div class="carousel-slide-2col">
               <div
                 class="rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 bg-white group cursor-pointer aspect-[16/10]">
@@ -548,27 +577,27 @@
           </div>
         </div>
 
-        <!-- Seta Minimalista Direita (sobre as fotos) -->
+        <!-- Seta seguinte -->
         <button id="amb-next" class="carousel-minimal-btn next" aria-label="Próximos ambientes">
           <i data-lucide="chevron-right" class="w-6 h-6 stroke-[1.75]"></i>
         </button>
 
       </div>
 
-      <!-- Dots do Carrossel de Ambientes -->
+      <!-- Marcadores de paginacao do carrossel de fotos -->
       <div id="amb-dots" class="flex justify-center items-center gap-2 mt-6"></div>
 
     </div>
   </section>
 
-  <!-- ================= PLANOS, CONVÊNIOS E DESCONTOS ================= -->
+  <!-- Secao de convenios, planos de saude e condicoes com desconto -->
   <section id="planos" class="py-10 sm:py-16 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-lg">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
-          <!-- Texto Direto & Comercial -->
+          <!-- Informacoes de consulta de desconto -->
           <div class="lg:col-span-5 space-y-4">
             <span
               class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase">
@@ -582,7 +611,7 @@
               condições especiais ativas para os atendimentos na Fazendo Terapia.
             </p>
             <div class="pt-2">
-              <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20consultar%20se%20o%20meu%20plano%20ou%20conv%C3%AAnio%20tem%20desconto%20na%20Fazendo%20Terapia."
+              <a href="https://wa.me/5564992981570?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20as%20condi%C3%A7%C3%B5es%20especiais%20para%20planos%2C%20conv%C3%AAnios%20e%20parcerias.%0A%0ADesde%20j%C3%A1%2C%20agrade%C3%A7o%20pela%20aten%C3%A7%C3%A3o."
                 target="_blank"
                 class="btn-zap px-6 py-3 rounded-xl font-bold text-sm inline-flex items-center gap-2 shadow-md">
                 <i data-lucide="message-circle" class="w-4 h-4"></i>
@@ -591,7 +620,7 @@
             </div>
           </div>
 
-          <!-- As 2 Fotos de Convênios e Parcerias em Destaque Visual -->
+          <!-- Fotos ampliadas com tabelas de convenios e parceiros -->
           <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm group cursor-pointer">
@@ -622,13 +651,13 @@
     </div>
   </section>
 
-  <!-- ================= LOCALIZAÇÃO & CONTATO ================= -->
+  <!-- Secao de canais de atendimento, localizacao e formulario -->
   <section id="contato" class="py-10 sm:py-16 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-        <!-- Info & Mapa (7 colunas) -->
+        <!-- Informacoes de contato e mapa -->
         <div class="lg:col-span-7 space-y-6">
           <div>
             <span class="text-xs font-bold uppercase tracking-wider text-sky-600">Localização & Contato</span>
@@ -637,6 +666,7 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
+            <!-- WhatsApp -->
             <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
               <div
                 class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
@@ -644,108 +674,135 @@
               </div>
               <div>
                 <p class="text-xs font-bold text-slate-500 uppercase">WhatsApp Recepção</p>
-                <a href="https://wa.me/5511999999999" target="_blank"
+                <a href="https://wa.me/5564992981570" target="_blank"
                   class="text-sm font-extrabold text-slate-900 hover:text-emerald-600">
-                  (11) 99999-9999
+                  (64) 99298-1570
                 </a>
               </div>
             </div>
 
+            <!-- Instagram da Clinica -->
+            <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-500 uppercase">Instagram da Clínica</p>
+                <a href="https://www.instagram.com/fazendo.terapiarv/" target="_blank"
+                  class="text-sm font-extrabold text-slate-900 hover:text-pink-600 flex items-center gap-1.5 mt-0.5">
+                  <span>@fazendo.terapiarv</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-pink-600"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- E-mail -->
             <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
               <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
                 <i data-lucide="mail" class="w-5 h-5"></i>
               </div>
               <div>
                 <p class="text-xs font-bold text-slate-500 uppercase">E-mail</p>
-                <a href="mailto:contato@fazendoterapia.com.br"
-                  class="text-sm font-extrabold text-slate-900 hover:text-sky-600">
-                  contato@fazendoterapia.com.br
+                <a href="mailto:fazendo.terapia@hotmail.com"
+                  class="text-xs sm:text-sm font-extrabold text-slate-900 hover:text-sky-600 break-all">
+                  fazendo.terapia@hotmail.com
                 </a>
               </div>
             </div>
 
+            <!-- Horarios -->
             <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
               <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
                 <i data-lucide="clock" class="w-5 h-5"></i>
               </div>
               <div>
-                <p class="text-xs font-bold text-slate-500 uppercase">Horários</p>
-                <p class="text-xs font-bold text-slate-900">Seg a Sex: 08h às 19h</p>
-                <p class="text-[11px] text-slate-500">Sábado: 08h às 13h</p>
+                <p class="text-xs font-bold text-slate-500 uppercase">Horários de Atendimento</p>
+                <p class="text-xs font-bold text-slate-900">Seg a Qui: 07h às 18h</p>
+                <p class="text-xs font-bold text-slate-900">Sexta: 07h às 16h</p>
+                <p class="text-[11px] text-slate-500 font-semibold">Sáb e Dom: Fechado</p>
               </div>
             </div>
 
-            <div class="glass-panel p-4 rounded-2xl flex items-start gap-3">
-              <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center shrink-0">
+            <!-- Endereco Completo -->
+            <div class="sm:col-span-2 glass-panel p-4 rounded-2xl flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
                 <i data-lucide="map-pin" class="w-5 h-5"></i>
               </div>
-              <div>
-                <p class="text-xs font-bold text-slate-500 uppercase">Endereço</p>
-                <p class="text-xs font-bold text-slate-900">Av. Principal da Clínica, 1000</p>
-                <p class="text-[11px] text-slate-500">Acesso Térreo</p>
+              <div class="flex-1">
+                <p class="text-xs font-bold text-slate-500 uppercase">Endereço da Clínica</p>
+                <p class="text-sm font-bold text-slate-900">R. Antônio Tizzo (antiga Rua Quatorze-B), nº 169</p>
+                <p class="text-xs text-slate-600 font-medium">Jardim Goiás — Rio Verde, GO • CEP: 75903-190</p>
               </div>
+              <a href="https://maps.google.com/?q=Rua+Ant%C3%B4nio+Tizzo,+169+-+Jardim+Goi%C3%A1s,+Rio+Verde+-+GO,+75903-190" target="_blank"
+                class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-50 text-sky-700 hover:bg-sky-100 text-xs font-bold transition-colors">
+                <span>Como Chegar</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>
             </div>
 
           </div>
 
-          <!-- Google Maps Embed -->
+          <!-- Mapa integrado do Google Maps -->
           <div class="rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-sm h-64 sm:h-72">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975416298514!2d-46.65657118440713!3d-23.561348884682975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1680000000000!5m2!1spt-BR!2sbr"
+              src="https://maps.google.com/maps?q=Rua+Ant%C3%B4nio+Tizzo,+169+-+Jardim+Goi%C3%A1s,+Rio+Verde+-+GO,+75903-190&t=&z=16&ie=UTF8&iwloc=&output=embed"
               width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade" title="Localização Fazendo Terapia">
+              referrerpolicy="no-referrer-when-downgrade" title="Localização Fazendo Terapia Rio Verde">
             </iframe>
           </div>
 
         </div>
 
-        <!-- Formulário Rápido (5 colunas) -->
+        <!-- Formulario de solicitacao de atendimento -->
         <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200">
-          <h3 class="text-lg font-bold text-slate-900 mb-1">Contato com a Recepção</h3>
-          <p class="text-xs text-slate-500 mb-4">Envie uma mensagem rápida e receba atendimento imediato.</p>
+          <h3 class="text-lg font-bold text-slate-900 mb-1">Solicitação de Atendimento</h3>
+          <p class="text-xs text-slate-600 mb-4 font-medium">Preencha os dados abaixo para ser atendido(a) diretamente por nossa equipe de recepção.</p>
 
           <form id="contact-form" class="space-y-3">
             <div>
-              <label for="form-name" class="block text-xs font-bold text-slate-600 mb-1">Nome Completo</label>
-              <input type="text" id="form-name" required placeholder="Seu nome"
+              <label for="form-name" class="block text-xs font-bold text-slate-700 mb-1">Nome Completo</label>
+              <input type="text" id="form-name" required placeholder="Ex.: Maria de Oliveira"
                 class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white">
             </div>
 
             <div>
-              <label for="form-phone" class="block text-xs font-bold text-slate-600 mb-1">WhatsApp</label>
-              <input type="tel" id="form-phone" required placeholder="(11) 98765-4321"
+              <label for="form-phone" class="block text-xs font-bold text-slate-700 mb-1">Telefone / WhatsApp</label>
+              <input type="tel" id="form-phone" required placeholder="(64) 99999-9999"
                 class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white">
             </div>
 
             <div>
-              <label for="form-specialty" class="block text-xs font-bold text-slate-600 mb-1">Especialidade de
-                Interesse</label>
+              <label for="form-specialty" class="block text-xs font-bold text-slate-700 mb-1">Especialidade de Interesse</label>
               <select id="form-specialty"
-                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white">
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white font-medium">
                 <option value="Terapia Ocupacional">Terapia Ocupacional</option>
                 <option value="Fonoaudiologia">Fonoaudiologia</option>
-                <option value="Psicologia">Psicologia</option>
-                <option value="Fisioterapia">Fisioterapia</option>
+                <option value="Psicologia Clínica">Psicologia Clínica</option>
+                <option value="Fisioterapia Neurofuncional">Fisioterapia Neurofuncional</option>
                 <option value="Psicopedagogia">Psicopedagogia</option>
                 <option value="Psicomotricidade">Psicomotricidade</option>
-                <option value="Nutrição">Nutrição</option>
+                <option value="Nutrição Clínica">Nutrição Clínica</option>
                 <option value="Musicoterapia">Musicoterapia</option>
-                <option value="Neuropsicologia">Neuropsicologia</option>
-                <option value="Médica Especialista">Médica Especialista</option>
-                <option value="Dúvida Geral">Outras / Não sei ainda</option>
+                <option value="Neuropsicologia & Avaliações">Neuropsicologia & Avaliações</option>
+                <option value="Médica em Neurodesenvolvimento">Médica em Neurodesenvolvimento</option>
+                <option value="Dúvidas Gerais / Outra">Outra / Orientações Gerais</option>
               </select>
             </div>
 
             <div>
-              <label for="form-msg" class="block text-xs font-bold text-slate-600 mb-1">Mensagem (opcional)</label>
-              <textarea id="form-msg" rows="2" placeholder="Gostaria de agendar um horário..."
+              <label for="form-msg" class="block text-xs font-bold text-slate-700 mb-1">Mensagem ou Observação (opcional)</label>
+              <textarea id="form-msg" rows="2" placeholder="Descreva brevemente o motivo da consulta ou dúvida..."
                 class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white"></textarea>
             </div>
 
             <button type="submit"
-              class="w-full btn-zap py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+              class="w-full btn-zap py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-sm">
               <i data-lucide="send" class="w-4 h-4"></i>
-              <span>Enviar para a Recepção</span>
+              <span>Solicitar Atendimento no WhatsApp</span>
             </button>
           </form>
         </div>
@@ -755,23 +812,58 @@
     </div>
   </section>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- Rodape institucional -->
   <footer class="bg-slate-900 text-slate-400 py-10 relative z-10 border-t border-slate-800 text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="flex items-center gap-3">
-        <img src="assets/images/logo-completa.png" alt="Logo" class="h-8 w-auto bg-white p-1 rounded-lg">
-        <span>© 2026 Fazendo Terapia Clínica Multidisciplinar. Todos os direitos reservados.</span>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 pb-6 border-b border-slate-800/80">
+        <div class="flex items-center gap-3">
+          <img src="assets/images/logo-completa.png" alt="Logo" class="h-8 w-auto bg-white p-1 rounded-lg">
+          <div>
+            <p class="font-bold text-white text-sm">Fazendo Terapia</p>
+            <p class="text-slate-400 text-xs">Clínica Multidisciplinar • Rio Verde - GO</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-6 text-slate-300">
+          <a href="#especialidades" class="hover:text-white transition-colors">Especialidades</a>
+          <a href="#ambientes" class="hover:text-white transition-colors">Ambientes</a>
+          <a href="#planos" class="hover:text-white transition-colors">Planos & Descontos</a>
+          <a href="#contato" class="hover:text-white transition-colors">Contato</a>
+          <a href="https://www.instagram.com/fazendo.terapiarv/" target="_blank"
+            class="hover:text-pink-400 transition-colors inline-flex items-center gap-1.5 text-slate-300"
+            title="Instagram da Fazendo Terapia: @fazendo.terapiarv">
+            <svg class="w-4 h-4 text-pink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+            <span>@fazendo.terapiarv</span>
+          </a>
+        </div>
       </div>
-      <div class="flex items-center gap-6">
-        <a href="#especialidades" class="hover:text-white transition-colors">Especialidades</a>
-        <a href="#ambientes" class="hover:text-white transition-colors">Ambientes</a>
-        <a href="#planos" class="hover:text-white transition-colors">Planos & Descontos</a>
-        <a href="#contato" class="hover:text-white transition-colors">Contato</a>
+
+      <!-- Barra inferior com direitos autorais e credito minimalista do desenvolvedor -->
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-500 text-center sm:text-left pt-2">
+        <span>© 2026 Fazendo Terapia Clínica Multidisciplinar • Rio Verde - GO. Todos os direitos reservados.</span>
+        
+        <div class="inline-flex items-center gap-1.5 text-slate-400">
+          <span>Desenvolvido por <span class="text-slate-300 font-medium">Guilherme Silva</span></span>
+          <span class="text-slate-600">•</span>
+          <a href="https://www.instagram.com/guilhermeesilvax/" target="_blank"
+            class="inline-flex items-center gap-1.5 text-pink-400 hover:text-pink-300 font-semibold transition-colors"
+            title="Instagram: @guilhermeesilvax">
+            <svg class="w-3.5 h-3.5 text-pink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+            <span class="underline underline-offset-4 decoration-pink-500/40 hover:decoration-pink-400">@guilhermeesilvax</span>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- ================= WHATSAPP FLUTUANTE DA RECEPÇÃO ================= -->
+  <!-- Botao flutuante com atalho de conversa no WhatsApp -->
   <div class="floating-whatsapp">
     <button id="whatsapp-trigger-btn"
       class="relative w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-2xl transition-transform hover:scale-105"
@@ -781,7 +873,7 @@
       <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-rose-500 rounded-full border-2 border-white"></span>
     </button>
 
-    <!-- Chat Popup Rápido Responsivo -->
+    <!-- Janela de chat rapido -->
     <div id="whatsapp-chat-popup"
       class="hidden absolute bottom-16 sm:bottom-18 right-0 w-[calc(100vw-36px)] sm:w-80 max-w-sm bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50">
       <div class="bg-emerald-600 p-3.5 text-white flex items-center justify-between">
@@ -794,16 +886,21 @@
         </button>
       </div>
       <div class="p-3.5 bg-slate-50 space-y-2 text-xs">
-        <p class="text-slate-600">Olá! Como nossa recepção pode ajudar você hoje?</p>
+        <p class="text-slate-700 font-medium">Olá! Seja bem-vindo(a) à Fazendo Terapia. Como nossa equipe pode auxiliar você hoje?</p>
         <button
-          class="zap-chip w-full text-left bg-white border border-slate-200 p-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 transition-colors"
-          data-msg="Olá! Gostaria de agendar um horário com a recepção.">
-          🗓️ Agendar Avaliação
+          class="zap-chip w-full text-left bg-white border border-slate-200 p-2.5 rounded-xl font-semibold text-slate-800 hover:bg-emerald-50 hover:border-emerald-300 transition-colors"
+          data-msg="Olá! Gostaria de verificar a disponibilidade de horários para agendamento de uma avaliação inicial.&#10;&#10;Desde já, agradeço pela atenção.">
+          📋 Agendar Avaliação Inicial
         </button>
         <button
-          class="zap-chip w-full text-left bg-white border border-slate-200 p-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 transition-colors"
-          data-msg="Olá! Gostaria de saber sobre os planos e descontos de convênio.">
-          💳 Planos & Descontos
+          class="zap-chip w-full text-left bg-white border border-slate-200 p-2.5 rounded-xl font-semibold text-slate-800 hover:bg-emerald-50 hover:border-emerald-300 transition-colors"
+          data-msg="Olá! Gostaria de consultar as condições especiais para planos e convênios com desconto.&#10;&#10;Desde já, agradeço pela atenção.">
+          💳 Planos & Convênios com Desconto
+        </button>
+        <button
+          class="zap-chip w-full text-left bg-white border border-slate-200 p-2.5 rounded-xl font-semibold text-slate-800 hover:bg-emerald-50 hover:border-emerald-300 transition-colors"
+          data-msg="Olá! Gostaria de mais detalhes sobre as especialidades e atendimentos da clínica.&#10;&#10;Desde já, agradeço pela atenção.">
+          🩺 Dúvidas sobre Especialidades
         </button>
       </div>
       <div class="p-2.5 bg-white border-t border-slate-100 flex items-center gap-2">
@@ -816,7 +913,7 @@
     </div>
   </div>
 
-  <!-- ================= MODAL RÁPIDO DE ESPECIALIDADE ================= -->
+  <!-- Modal com detalhes completos da especialidade -->
   <div id="specialty-modal"
     class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative max-h-[88vh] overflow-y-auto">
@@ -834,7 +931,7 @@
     </div>
   </div>
 
-  <!-- ================= LIGHTBOX PARA FOTOS ================= -->
+  <!-- Lightbox para visualizacao ampliada de imagens -->
   <div id="lightbox-modal" class="lightbox-overlay">
     <div class="relative max-w-4xl w-full mx-4 p-2 flex flex-col items-center">
       <button id="lightbox-close" class="absolute -top-10 right-0 text-white hover:text-rose-400 p-2">
@@ -845,7 +942,7 @@
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Scripts da cena 3D e logica da pagina -->
   <script src="js/three-scene.js"></script>
   <script src="js/main.js"></script>
 </body>
